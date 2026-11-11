@@ -1,7 +1,7 @@
 {
-  "total": 8,
+  "total": 17,
   "counts": {
-    "machines": 8,
+    "machines": 17,
     "web": 0,
     "pwn": 0,
     "crypto": 0,
@@ -10,6 +10,118 @@
     "misc": 0
   },
   "entries": [
+    {
+      "title": "Orion",
+      "subtitle": "CMS Behavior Injection, Session File Poisoning & Telnetd Option Abuse",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "cms",
+        "object-injection",
+        "session-poisoning",
+        "linux"
+      ],
+      "date": "2026-10",
+      "path": "machines/orion.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/orion.md",
+      "id": "01"
+    },
+    {
+      "title": "Responder",
+      "subtitle": "Remote File Inclusion Coercion & NetNTLM Hash Recovery",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "rfi",
+        "ntlm",
+        "winrm",
+        "windows"
+      ],
+      "date": "2026-10",
+      "path": "machines/responder.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/responder.md",
+      "id": "02"
+    },
+    {
+      "title": "Scaffold",
+      "subtitle": "Directory ACL Chaining, DCOM Lateral Movement & AD CS Weak Binding",
+      "category": "machines",
+      "difficulty": "hard",
+      "tags": [
+        "active-directory",
+        "adcs",
+        "acl",
+        "dcom"
+      ],
+      "date": "2026-10",
+      "path": "machines/scaffold.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/scaffold.md",
+      "id": "03"
+    },
+    {
+      "title": "Stream",
+      "subtitle": "Actuator Heapdump Secrets, Async Kafka XXE & Process Argument Races",
+      "category": "machines",
+      "difficulty": "medium",
+      "tags": [
+        "spring-boot",
+        "xxe",
+        "kafka",
+        "clickhouse"
+      ],
+      "date": "2026-10",
+      "path": "machines/stream.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/stream.md",
+      "id": "04"
+    },
+    {
+      "title": "Three",
+      "subtitle": "Virtual Host Discovery, Permissive S3 Buckets & Webroot Execution",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "cloud",
+        "s3",
+        "virtual-hosting",
+        "web"
+      ],
+      "date": "2026-10",
+      "path": "machines/three.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/three.md",
+      "id": "05"
+    },
+    {
+      "title": "Touch",
+      "subtitle": "Unauthenticated Hardware API, CSS Masking & Browser Kiosk Breakout",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "kiosk-escape",
+        "rdp",
+        "database-udf",
+        "windows"
+      ],
+      "date": "2026-10",
+      "path": "machines/touch.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/touch.md",
+      "id": "06"
+    },
+    {
+      "title": "Vaccine",
+      "subtitle": "Legacy Archive Exposure, PostgreSQL Execution & Restricted Editor Escape",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "ftp",
+        "sqli",
+        "postgresql",
+        "linux"
+      ],
+      "date": "2026-10",
+      "path": "machines/vaccine.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/vaccine.md",
+      "id": "07"
+    },
     {
       "title": "Autopilot",
       "subtitle": "Protocol Breakdown & Hybrid Cross-Relay Analysis",
@@ -24,7 +136,7 @@
       "date": "2026-11",
       "path": "machines/autopilot.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/autopilot.md",
-      "id": "01"
+      "id": "08"
     },
     {
       "title": "Bedside",
@@ -40,7 +152,7 @@
       "date": "2026-11",
       "path": "machines/bedside.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/bedside.md",
-      "id": "02"
+      "id": "09"
     },
     {
       "title": "Cap",
@@ -56,7 +168,7 @@
       "date": "2026-11",
       "path": "machines/cap.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/cap.md",
-      "id": "03"
+      "id": "10"
     },
     {
       "title": "DarkZeroReturns",
@@ -72,7 +184,7 @@
       "date": "2026-11",
       "path": "machines/darkzeroreturns.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/darkzeroreturns.md",
-      "id": "04"
+      "id": "11"
     },
     {
       "title": "DutyBound",
@@ -88,7 +200,7 @@
       "date": "2026-11",
       "path": "machines/dutybound.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/dutybound.md",
-      "id": "05"
+      "id": "12"
     },
     {
       "title": "Enigma",
@@ -104,7 +216,7 @@
       "date": "2026-11",
       "path": "machines/enigma.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/enigma.md",
-      "id": "06"
+      "id": "13"
     },
     {
       "title": "Nimbus",
@@ -120,7 +232,7 @@
       "date": "2026-11",
       "path": "machines/nimbus.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/nimbus.md",
-      "id": "07"
+      "id": "14"
     },
     {
       "title": "Oraculo",
@@ -136,7 +248,39 @@
       "date": "2026-11",
       "path": "machines/oraculo.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/oraculo.md",
-      "id": "08"
+      "id": "15"
+    },
+    {
+      "title": "Paperwork",
+      "subtitle": "Printer Job Language Traversal & UNIX Socket Descriptor Exposure",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "pjl",
+        "path-traversal",
+        "ipc",
+        "linux"
+      ],
+      "date": "2026-11",
+      "path": "machines/paperwork.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/paperwork.md",
+      "id": "16"
+    },
+    {
+      "title": "Takeoff",
+      "subtitle": "Go Template SSTI, Custom Binary Token Forgery & Container Bind Escapes",
+      "category": "machines",
+      "difficulty": "hard",
+      "tags": [
+        "ssti",
+        "golang",
+        "containers",
+        "privesc"
+      ],
+      "date": "2026-11",
+      "path": "machines/takeoff.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/takeoff.md",
+      "id": "17"
     }
   ]
 }
