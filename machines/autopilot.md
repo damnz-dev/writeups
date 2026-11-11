@@ -1,7 +1,7 @@
 ---
 title: Autopilot
 subtitle: Protocol Breakdown & Hybrid Cross-Relay Analysis
-difficulty: unrated
+difficulty: insane
 tags: [active-directory, linux, ntlm-relay, webdav]
 date: 2026-11
 ---
