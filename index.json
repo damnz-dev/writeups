@@ -1,7 +1,7 @@
 {
-  "total": 1,
+  "total": 8,
   "counts": {
-    "machines": 1,
+    "machines": 8,
     "web": 0,
     "pwn": 0,
     "crypto": 0,
@@ -14,7 +14,7 @@
       "title": "Autopilot",
       "subtitle": "Protocol Breakdown & Hybrid Cross-Relay Analysis",
       "category": "machines",
-      "difficulty": "unrated",
+      "difficulty": "insane",
       "tags": [
         "active-directory",
         "linux",
@@ -25,6 +25,118 @@
       "path": "machines/autopilot.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/autopilot.md",
       "id": "01"
+    },
+    {
+      "title": "Bedside",
+      "subtitle": "Unsafe Model Deserialization & Internal Service Traversal",
+      "category": "machines",
+      "difficulty": "medium",
+      "tags": [
+        "deserialization",
+        "path-traversal",
+        "containers",
+        "linux"
+      ],
+      "date": "2026-11",
+      "path": "machines/bedside.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/bedside.md",
+      "id": "02"
+    },
+    {
+      "title": "Cap",
+      "subtitle": "Authorization Gaps in Telemetry Capture & POSIX Capabilities",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "idor",
+        "pcap",
+        "capabilities",
+        "linux"
+      ],
+      "date": "2026-11",
+      "path": "machines/cap.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/cap.md",
+      "id": "03"
+    },
+    {
+      "title": "DarkZeroReturns",
+      "subtitle": "CI/CD Runner Abuse, Kerberos Collision & Cross-Forest Trust Forgery",
+      "category": "machines",
+      "difficulty": "hard",
+      "tags": [
+        "active-directory",
+        "cross-forest",
+        "kerberos",
+        "cicd"
+      ],
+      "date": "2026-11",
+      "path": "machines/darkzeroreturns.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/darkzeroreturns.md",
+      "id": "04"
+    },
+    {
+      "title": "DutyBound",
+      "subtitle": "Barcode Audit Injection, X11 Socket Hijacking & Systemd Path Eval",
+      "category": "machines",
+      "difficulty": "medium",
+      "tags": [
+        "sqli",
+        "x11",
+        "systemd",
+        "linux"
+      ],
+      "date": "2026-11",
+      "path": "machines/dutybound.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/dutybound.md",
+      "id": "05"
+    },
+    {
+      "title": "Enigma",
+      "subtitle": "NFS/Mail Exposure, Authenticated CMS RCE & Loopback Console Injection",
+      "category": "machines",
+      "difficulty": "easy",
+      "tags": [
+        "nfs",
+        "cms",
+        "command-injection",
+        "linux"
+      ],
+      "date": "2026-11",
+      "path": "machines/enigma.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/enigma.md",
+      "id": "06"
+    },
+    {
+      "title": "Nimbus",
+      "subtitle": "SSRF Metadata Bypass, Async Queue RCE & Build Container Escape",
+      "category": "machines",
+      "difficulty": "hard",
+      "tags": [
+        "cloud",
+        "ssrf",
+        "deserialization",
+        "containers"
+      ],
+      "date": "2026-11",
+      "path": "machines/nimbus.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/nimbus.md",
+      "id": "07"
+    },
+    {
+      "title": "Oraculo",
+      "subtitle": "Indirect RAG Prompt Injection, Loopback Resolver Abuse & Unsigned Plugins",
+      "category": "machines",
+      "difficulty": "medium",
+      "tags": [
+        "ai-security",
+        "rag",
+        "idor",
+        "linux"
+      ],
+      "date": "2026-11",
+      "path": "machines/oraculo.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/oraculo.md",
+      "id": "08"
     }
   ]
 }
