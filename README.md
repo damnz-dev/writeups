@@ -10,7 +10,7 @@
 <!-- STATS:END -->
 
 <p align="center"><sub>
-Sanitized case studies from offensive security labs and CTFs. Each file documents <b>architecture, protocol behavior and mitigations</b>,
+Sanitized case studies from purple team (defensive &amp; offensive) security labs and CTFs. Each file documents <b>architecture, protocol behavior and mitigations</b>,
 never flags, credentials, target addresses or copy-paste exploitation steps.
 </sub></p>
 
