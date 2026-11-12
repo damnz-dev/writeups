@@ -77,6 +77,27 @@ Internal tooling developed for operational automation often bypasses commercial 
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (WebDAV / PHP upload)
+- **T1548** — Abuse Elevation Control Mechanism (Postfix `dbconf` / local admin API)
+- **T1557.001** — Adversary-in-the-Middle: NTLM Relay (IMAP to SMB)
+- **T1552.001 / T1021.002** — Credentials in Files / SMB Lateral Movement
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **WebDAV & Perimeter Isolation:** Disable unused WebDAV methods (`PUT`, `MKCOL`, `PROPFIND`, `MOVE`) and block script execution (`php_flag engine off`) inside upload/collaboration directories.
+- **Mail Gateway Hardening:** Bind local administration APIs exclusively to `127.0.0.1` with strong authentication and strictly validate configuration keys accepted by Postfix `dbconf` wrappers.
+- **Anti-Relay Enforcement:** Require **SMB Signing** (`RequireSecuritySignature = 1`) domain-wide, enforce TLS + **Extended Protection for Authentication (EPA)** on IMAP/HTTP services, and segment mail gateways from internal workstations.
+- **Client Credential Hygiene:** Disable cleartext credential caching in mail clients and eliminate hardcoded credentials in administrative wrapper binaries.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Unexpected `PUT`/`MKCOL` requests creating `.php` files inside WebDAV paths.
+- Local `postconf` modifications or Postfix daemon restarts outside maintenance windows.
+- NTLM authentication traffic relayed from the Linux mail gateway toward internal workstation port `445/tcp` (`Event ID 4624` Logon Type 3 with anomalous source IP).
+
+---
+
+## 5. Conclusion
 
 The attack path analyzed demonstrates that enterprise defense is rarely broken by a single catastrophic zero-day, but rather by the **interaction between protocol edge cases**: an unrestricted file upload on Linux combined with missing SMB signing on Windows allows an attacker to pivot seamlessly across distinct operating systems and security domains.

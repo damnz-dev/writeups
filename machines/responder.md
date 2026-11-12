@@ -50,6 +50,23 @@ Because outbound SMB connections remain unfiltered at the perimeter and NTLM neg
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (Remote File Inclusion)
+- **T1557.001** — Adversary-in-the-Middle: NTLM Credential Capture
+- **T1021.006** — Remote Services: WinRM (`5985/tcp`)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Disable RFI Vectors:** Set `allow_url_include = Off` and `allow_url_fopen = Off` in `php.ini`, and validate template/language parameters against a strict static allowlist.
+- **Egress SMB & WinRM Hardening:** Block outbound `445/tcp` from web servers to prevent NetNTLMv2 leakage, enforce **SMB Signing**, and restrict WinRM (`5985/5986`) to administrative subnets.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Query parameters containing `http://` or UNC paths (`//...`) triggering outbound `445/tcp` SYN packets from the web host.
+- WinRM (`Event ID 4624` Logon Type 3) logins from non-management IP ranges.
+
+---
+
+## 5. Conclusion
 
 Responder demonstrates how a simple input validation flaw in PHP on Windows turns native OS network-share resolution into an effective credential-coercion vector when outbound SMB egress and NTLM are left unrestricted.

@@ -57,6 +57,23 @@ Once authenticated locally, internal web consoles listening solely on loopback i
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (`CVE-2026-38751`, `CVE-2026-27626`)
+- **T1505.003** — Server Software Component: Web Shell
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Patch & Extension Lockdown:** Update the application to remediate `CVE-2026-38751` and `CVE-2026-27626`; disable runtime extension/module uploads in production and require signed packages.
+- **Backup Isolation:** Move database backup execution to OS-level scheduled jobs without accepting CLI flags or file paths from HTTP requests.
+- **File Integrity Monitoring (FIM):** Monitor plugin/extension directories with `auditd` or `AIDE` for unauthorized file writes.
+
+### 4.3 Observable IOCs & SIEM Detections
+- POST requests to module-upload endpoints or `backup_database` actions containing shell metacharacters.
+- New executable scripts written inside extension directories followed by web-user shell execution.
+
+---
+
+## 5. Conclusion
 
 Enigma underscores the failure of "perimeter-only" trust models: once public file exports leak initial employee credentials, trusting internal email and unauthenticated loopback admin panels collapses every remaining security tier.

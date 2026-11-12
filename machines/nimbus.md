@@ -58,6 +58,24 @@ Compromised build runners operate inside containers granted excessive Linux capa
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1552.005** — Cloud Instance Metadata API (SSRF Decimal IP Bypass)
+- **T1078.004 / T1611** — Cloud Accounts / Escape to Host (CodeBuild Container)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Enforce IMDSv2 & SSRF Normalization:** Require session-oriented **IMDSv2** (`HttpPutResponseHopLimit = 1`); normalize decimal/octal/hex IPs and resolve DNS before blocking `169.254.0.0/16`, loopback, and RFC1918 ranges.
+- **Least-Privilege IAM & SQS:** Scope instance IAM roles to remove unnecessary SQS/CodeBuild permissions and validate strict JSON schemas on consumed queue messages.
+- **Build Container Hardening:** Prohibit `--privileged`, `/var/run/docker.sock` mounts, and `CAP_SYS_ADMIN` in CI/CodeBuild containers.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Outbound HTTP parameters containing decimal/hex IP encodings (`2852039166`) or redirects to `169.254.169.254`.
+- Temporary IAM credentials used from IP addresses outside the originating compute instance.
+- Container escape attempts or Docker socket access from inside build workers.
+
+---
+
+## 5. Conclusion
 
 Nimbus illustrates common architectural pitfalls in emulated and real cloud deployments: parser mismatches nullify string-based SSRF defenses, unsafe deserializers turn message queues into execution sinks, and privileged build containers erase container-to-host boundaries.

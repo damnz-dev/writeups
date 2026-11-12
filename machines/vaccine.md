@@ -54,6 +54,25 @@ Authenticated access to vulnerable search endpoints enables PostgreSQL command e
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1078** — Valid Accounts (Anonymous FTP Backup Exposure)
+- **T1190** — Exploit Public-Facing Application (PostgreSQL `COPY ... PROGRAM`)
+- **T1548.003** — Abuse Elevation Control Mechanism: `sudo vi`
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **FTP & Backup Security:** Disable anonymous FTP (`anonymous_enable=NO` in `vsftpd.conf`), remove backups from public shares, and use AES-256 archive encryption.
+- **PostgreSQL Hardening:** Parameterize queries and ensure application roles lack `pg_execute_server_program` privileges.
+- **Sudoers Hardening:** Never allow interactive editors (`vi`, `vim`, `nano`) in `/etc/sudoers`; replace with `sudoedit` scoped to specific configuration files.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Anonymous FTP downloads of `.zip`/`.bak` archives followed by web login attempts.
+- PostgreSQL logs showing `COPY ... FROM/TO PROGRAM` execution.
+- `/bin/sh` or `/bin/bash` spawned as a child process of `vi` running under `sudo`.
+
+---
+
+## 5. Conclusion
 
 Vaccine reinforces foundational defensive hygiene: backup leakage, weak hashing, unparameterized database queries, and naive `sudo` editor delegations continue to chain reliably whenever defense-in-depth is neglected across tiers.

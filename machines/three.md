@@ -48,6 +48,22 @@ When a single HTTP listener serves multiple domains strictly based on the `Host`
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1530** — Data from Cloud Storage Object (Unauthenticated S3 Bucket Write)
+- **T1505.003** — Server Software Component: Web Shell
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **S3 / Object Storage Lockdown:** Enable **Block Public Access** at account and bucket levels; remove anonymous `Principal: "*"` policies permitting `s3:ListBucket` or `s3:PutObject`.
+- **Static vs. Dynamic Separation:** Never serve user-writable object-storage buckets directly from an executable PHP/application webroot.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Unauthenticated `PutObject` API calls uploading `.php` or executable extensions to storage buckets.
+- HTTP `GET` requests executing newly uploaded scripts with command parameters.
+
+---
+
+## 5. Conclusion
 
 Three demonstrates a high-impact cloud misconfiguration pattern: weak S3 bucket access control becomes an immediate RCE boundary whenever uploaded files remain reachable inside an active server-side interpreter path.

@@ -58,6 +58,24 @@ Periodic root-owned dead-letter-queue draining tasks invoke database CLI clients
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1552** — Unsecured Credentials (Spring Boot Actuator Heapdump)
+- **T1005** — Data from Local System (XXE In-Band)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Spring Boot Actuator Lockdown:** Restrict exposed endpoints to `health,info` (`management.endpoints.web.exposure.include=health,info`); explicitly disable `heapdump` and `env` in production.
+- **XXE Prevention:** Disable `DOCTYPE` declarations and external entities in XML parsers (`defusedxml` in Python, `FEATURE_DISALLOW_DOCTYPE_DECL = true` in Java).
+- **Secret Management:** Avoid keeping long-lived ClickHouse credentials in plaintext JVM properties; use short-lived tokens or external secret vaults.
+
+### 4.3 Observable IOCs & SIEM Detections
+- HTTP requests targeting `/actuator/heapdump`, `/actuator/env`, or `/heapdump`.
+- XML payloads containing `<!DOCTYPE` or `<!ENTITY ... SYSTEM "file://">`.
+- ClickHouse authentications originating from unauthorized hosts or service accounts.
+
+---
+
+## 5. Conclusion
 
 Stream illustrates why asynchronous message pipelines do not eliminate injection risks: when an unauthenticated heapdump supplies database read visibility, blind downstream XXE becomes trivial in-band data exfiltration—and transient CLI secrets on Linux dismantle host isolation.

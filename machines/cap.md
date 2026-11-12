@@ -55,6 +55,24 @@ Administrators sometimes attach fine-grained Linux kernel capabilities directly 
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1040 / T1552.001** — Network Sniffing / Credentials in Cleartext Captures
+- **T1548** — Abuse Elevation Control Mechanism (Linux Capabilities `cap_setuid`)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Object-Level Authorization:** Enforce session-ownership checks on `/data/{id}` routes and replace sequential numeric IDs with cryptographically random UUIDs v4.
+- **Protocol Encryption:** Disable cleartext FTP (`vsftpd` without TLS) and migrate file transfers to **SFTP** or **FTPS**.
+- **Capabilities Hygiene:** Remove `cap_setuid` from general-purpose interpreters (`setcap -r /usr/bin/python3.*`); isolate packet-capture helpers with `cap_net_raw` only and no scriptable runtime.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Sequential enumeration of `/data/0`, `/data/1`, `/data/2` from a single web session.
+- Cleartext FTP authentication sequences followed by SSH logins for the same account.
+- `auditd` syscall logs capturing `setuid(0)` invoked by `/usr/bin/python3`.
+
+---
+
+## 5. Conclusion
 
 Cap illustrates how two classic systemic weaknesses—missing authorization controls on historical diagnostic artifacts and broad kernel capabilities applied to high-level runtimes—combine cleanly without requiring memory corruption or software zero-days.

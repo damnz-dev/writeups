@@ -58,6 +58,25 @@ Background automation pairs a `systemd.path` unit with a privileged helper scrip
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (PostgreSQL Stacked SQLi)
+- **T1563.002** — Remote Service Session Hijacking (X11 Socket)
+- **T1543.002** — Create or Modify System Process: Systemd Service / Path Unit
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Database & Parser Hardening:** Parameterize all SQL queries in the boarding-pass parser, disable stacked statements where supported, and revoke `pg_execute_server_program` from application roles.
+- **Kiosk / Display Isolation:** Migrate kiosk sessions from X11 to **Wayland** or restrict `/tmp/.X11-unix/` permissions (`0700` owned by the kiosk user) and disable `xhost +`.
+- **Systemd Path & Script Safety:** Never pass filenames or untrusted input to `eval` in scripts triggered by `.path` units; enforce `root:root` `0700` permissions on watched directories.
+
+### 4.3 Observable IOCs & SIEM Detections
+- PostgreSQL logs containing stacked `COPY ... TO/FROM PROGRAM` statements.
+- Non-interactive service accounts (`postgres`) opening `/tmp/.X11-unix/X*` or spawning `xterm`/`xdotool`.
+- Files containing shell metacharacters created in directories monitored by `systemd.path` units.
+
+---
+
+## 5. Conclusion
 
 DutyBound illustrates how input validation gaps in non-traditional surfaces—structured barcode trailers and internal operational spreadsheets—combine with permissive local IPC sockets to dismantle kiosk isolation end to end.

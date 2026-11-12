@@ -58,6 +58,25 @@ Local maintenance batch files readable on disk retain privileged database creden
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1078.001** — Valid Accounts: Default Accounts
+- **T1021.001** — Remote Services: Remote Desktop Protocol (Kiosk Escape)
+- **T1543** — Create or Modify System Process (MySQL UDF `sys_exec`)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **API Auth & Secret Removal:** Require authentication on all internal API routes, remove default credentials, and strip debug secrets from rendered HTML.
+- **Kiosk & RDP Hardening:** Enforce NLA and firewall allowlists on `3389/tcp`; lock down kiosk accounts with **Assigned Access** and **AppLocker / WDAC** blocking `cmd.exe`, `powershell.exe`, and file/print escape dialogs.
+- **MySQL Anti-UDF Hardening:** Set `secure_file_priv=""` in `my.ini`, run MySQL under a low-privilege account, and remove write permissions on `plugin_dir`.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Unauthenticated requests to administrative API endpoints.
+- `cmd.exe` or `explorer.exe` spawned under a kiosk user session (`Event ID 1` Sysmon).
+- `.dll`/`.so` writes to MySQL `plugin_dir` or `CREATE FUNCTION ... SONAME` queries.
+
+---
+
+## 5. Conclusion
 
 Touch illustrates how physical-digital convergence surfaces fail when hardware control APIs, frontend CSS obfuscation, kiosk error states, and over-privileged database engines interact across weak boundaries.

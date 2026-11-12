@@ -65,6 +65,23 @@ Extracting backup secrets after local root escalation yields privileged credenti
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1195.002** — Compromise Software Supply Chain (CI/CD Workflow Manipulation `CVE-2026-33937`)
+- **T1552.004** — Unsecured Credentials: CI/CD Secrets
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **CI/CD Engine & Trigger Hardening:** Patch the Git/CI platform against `CVE-2026-33937`; avoid `pull_request_target` when checking out untrusted fork code and enforce least-privilege `GITHUB_TOKEN` (`permissions: contents: read`).
+- **Protected Environments:** Require manual maintainer approval before executing workflows from external contributors and isolate deployment secrets in protected environments.
+- **Ephemeral Runners:** Use single-use, network-segmented runners with no persistent disk state or lateral access to internal infrastructure.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Pull requests modifying `.github/workflows/*.yml` or `.gitea/workflows/` from external forks.
+- Unexpected outbound network connections or environment-variable dumps in CI runner logs.
+
+---
+
+## 5. Conclusion
 
 DarkZeroReturns demonstrates how operational conveniences—persistent CI/CD build runners, permissive directory-to-POSIX name resolution, and unfiltered forest trusts—bridge isolated application flaws directly into full multi-forest domain compromise.

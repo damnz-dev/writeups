@@ -57,6 +57,25 @@ Windows builds lacking strict strong-certificate-binding enforcement (`StrongCer
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1552.001** — Unsecured Credentials: Credentials in Files (MDT Deployment Shares)
+- **T1098** — Account Manipulation (AD ACL Abuse: `AddSelf`, `GenericWrite`)
+- **T1021.003** — Remote Services: Distributed Component Object Model (`MMC20.Application`)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **MDT / Deployment Share Hardening:** Restrict `DeploymentShare$` access by provisioning subnet/machine account and remove domain-join credentials from readable `CustomSettings.ini` / `Bootstrap.ini` files.
+- **Active Directory ACL Auditing:** Continuously audit AD permissions (PingCastle / BloodHound) to remove non-admin `GenericWrite`, `WriteDacl`, and `AddSelf` rights over privileged groups or accounts.
+- **DCOM Restriction:** Disable remote instantiation of unnecessary DCOM classes (`MMC20.Application`) via GPO/DCOM hardening and filter dynamic RPC from standard workstations.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Reads of `CustomSettings.ini` or `Unattend.xml` from non-provisioning hosts.
+- AD `Event ID 5136` / `4728` showing ACL or group membership changes by non-admin accounts.
+- `mmc.exe -Embedding` spawning child processes via DCOM (`Event ID 1` Sysmon).
+
+---
+
+## 5. Conclusion
 
 Scaffold highlights the compounding impact of delegated Active Directory ACL hygiene failures: individually innocuous directory attribute permissions unite with legacy AD CS UPN-based certificate mapping to deliver silent domain compromise.

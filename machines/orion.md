@@ -54,6 +54,22 @@ Inspecting application environment configuration files reveals local database cr
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (Craft CMS `CVE-2025-32432`)
+- **T1078** — Valid Accounts / Authentication Bypass (`telnetd` `CVE-2026-24061`)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **CMS Patching & WAF:** Upgrade Craft CMS beyond `CVE-2025-32432` and apply WAF rules blocking anomalous payloads to `actions/assets/generate-transform`.
+- **Decommission Legacy Telnet:** Remove `inetutils-telnetd` completely and enforce OpenSSH with key-based authentication (`PasswordAuthentication no`, `PermitRootLogin no`); block `23/tcp` at host and perimeter firewalls.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Malformed POST requests to Craft CMS asset-transform endpoints containing serialized/class parameters.
+- Inbound `23/tcp` sessions negotiating `NEW-ENVIRON` with `USER=-f root`.
+
+---
+
+## 5. Conclusion
 
 Orion demonstrates the danger of multi-layer framework trust flaws combined with obsolete system services: an edge object-instantiation bug bridges cleanly to loopback-only legacy daemons that should never exist in modern Linux deployments.

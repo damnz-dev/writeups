@@ -58,6 +58,23 @@ Using the secondary automation JWT recovered from environment variables enables 
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (SSRF & SSTI in Go/Echo)
+- **T1059** — Command and Scripting Interpreter
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Safe Templating in Go:** Use precompiled `templ` or `html/template` components exclusively; never pass user-controlled strings into `template.New().Parse()`.
+- **SSRF Egress Controls:** Validate outbound URLs against an explicit scheme (`https`) and domain allowlist, and block loopback (`127.0.0.0/8`, `::1`) and private ranges inside a custom `net.Dialer` `Control` hook.
+- **Command Execution Safety:** Replace shell-interpolated helper calls (`sh -c`) with direct `exec.Command` argument arrays under a non-privileged service account.
+
+### 4.3 Observable IOCs & SIEM Detections
+- Request parameters containing template expressions (`{{...}}`) or internal `127.0.0.1` URLs.
+- Template parsing errors in Go service logs followed by unexpected shell child processes.
+
+---
+
+## 5. Conclusion
 
 Takeoff reinforces an essential principle in security architecture: validating outer serialization formats (like PDF syntax) provides false assurance if upstream template interpolation leaks cryptographic keys that activate dormant execution sinks and insecurely mounted automation containers.

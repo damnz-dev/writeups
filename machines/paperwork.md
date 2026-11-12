@@ -53,6 +53,24 @@ UNIX domain sockets allow processes to transfer open kernel file descriptors acr
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (PJL Path Traversal)
+- **T1098.004** — Account Manipulation: SSH Authorized Keys
+- **T1548** — Abuse Elevation Control Mechanism (`SCM_RIGHTS` FD Leak)
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Print Protocol Isolation:** Never expose LPD (`515/tcp`) or JetDirect/PJL (`9100/tcp`) outside dedicated print VLANs; disable filesystem PJL commands (`FSUPLOAD`, `FSDOWNLOAD`, `FSDIRLIST`) or confine the daemon with `AppArmor`/`chroot`.
+- **Socket & File Descriptor Hygiene:** Enforce `0600` permissions on privileged Unix domain sockets and set `FD_CLOEXEC` (`O_CLOEXEC`) on sensitive descriptors before privilege transitions.
+
+### 4.3 Observable IOCs & SIEM Detections
+- `@PJL FSUPLOAD` or `@PJL FSDOWNLOAD` commands containing `../` traversal sequences on port `9100/tcp`.
+- Modifications to `~/.ssh/authorized_keys` initiated by print-spooler service accounts.
+- Unexpected `SCM_RIGHTS` ancillary data transfers across Unix sockets.
+
+---
+
+## 5. Conclusion
 
 Paperwork shows how trusting legacy peripheral protocols directly on network interfaces and passing open file descriptors across weak local IPC boundaries bypasses standard POSIX user and permission separation.

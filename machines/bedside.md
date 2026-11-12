@@ -59,6 +59,23 @@ Administrative utilities invoking machine-learning frameworks frequently inherit
 
 ---
 
-## 4. Conclusion
+## 4. Blue Team Counterpart: Detection, Hardening & IOCs
+
+### 4.1 MITRE ATT&CK Mapping
+- **T1190** — Exploit Public-Facing Application (Insecure Deserialization `CVE-2025-64512`)
+- **T1059.006** — Command and Scripting Interpreter: Python
+
+### 4.2 Concrete Engineering & Hardening Controls
+- **Eliminate Unsafe Deserialization:** Upgrade the PDF parsing library beyond `CVE-2025-64512`; ban `pickle.loads()`, `cPickle`, and `yaml.load()` on untrusted inputs, replacing them with JSON or schema-validated data formats.
+- **CI/CD Static Guardrails (SAST):** Fail builds when deserialization primitives (`pickle`, `marshal`, `shelve`) appear in request-handling code paths.
+- **Document Processing Sandbox:** Execute file parsers inside ephemeral, network-isolated containers (`--network=none`, `read_only: true`, non-root UID, `cap_drop: ["ALL"]`).
+
+### 4.3 Observable IOCs & SIEM Detections
+- Uploaded PDF payloads triggering `pickle` / `UnpicklingError` exceptions in application logs.
+- `auditd` / `Falco` alerts for `execve` spawning `/bin/sh`, `bash`, `curl`, or `nc` with a Python parser worker as parent process.
+
+---
+
+## 5. Conclusion
 
 The Bedside architecture highlights how stacking unsafe deserialization primitives across separate application tiers—first in web ingestion, then in elevated ML validation tooling—turns isolated data-processing weaknesses into full host compromise.
