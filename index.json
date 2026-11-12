@@ -235,22 +235,6 @@
       "id": "14"
     },
     {
-      "title": "Oraculo",
-      "subtitle": "Indirect RAG Prompt Injection, Loopback Resolver Abuse & Unsigned Plugins",
-      "category": "machines",
-      "difficulty": "medium",
-      "tags": [
-        "ai-security",
-        "rag",
-        "idor",
-        "linux"
-      ],
-      "date": "2026-11",
-      "path": "machines/oraculo.md",
-      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/oraculo.md",
-      "id": "15"
-    },
-    {
       "title": "Paperwork",
       "subtitle": "Printer Job Language Traversal & UNIX Socket Descriptor Exposure",
       "category": "machines",
@@ -264,7 +248,7 @@
       "date": "2026-11",
       "path": "machines/paperwork.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/paperwork.md",
-      "id": "16"
+      "id": "15"
     },
     {
       "title": "Takeoff",
@@ -280,6 +264,24 @@
       "date": "2026-11",
       "path": "machines/takeoff.md",
       "url": "https://github.com/damnz-dev/writeups/blob/main/machines/takeoff.md",
+      "id": "16"
+    },
+    {
+      "title": "Unclaimed",
+      "subtitle": "LLM Text-to-SQL Prompt Injection, SQL Server Impersonation & SeBackupPrivilege Abuse",
+      "category": "machines",
+      "difficulty": "medium",
+      "tags": [
+        "prompt-injection",
+        "llm-security",
+        "mssql",
+        "dpapi",
+        "sebackupprivilege",
+        "windows"
+      ],
+      "date": "2026-11",
+      "path": "machines/unclaimed.md",
+      "url": "https://github.com/damnz-dev/writeups/blob/main/machines/unclaimed.md",
       "id": "17"
     }
   ]
